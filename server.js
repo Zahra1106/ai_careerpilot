@@ -14,9 +14,14 @@ const { errorHandler, notFound } = require("./src/middleware/errorMiddleware");
 const app = express();
 
 // --- Core middleware ---
+// Permissive by default (undefined or "*" both mean "allow any origin") —
+// this API is called from a mobile app and possibly Flutter web during
+// development, not from a browser session with cookies, so a wildcard
+// origin carries no CSRF risk here (auth is a Bearer JWT, not a cookie).
+const clientOrigin = process.env.CLIENT_ORIGIN;
 app.use(
   cors({
-    origin: process.env.CLIENT_ORIGIN === "*" ? true : process.env.CLIENT_ORIGIN,
+    origin: !clientOrigin || clientOrigin === "*" ? true : clientOrigin,
   })
 );
 app.use(express.json({ limit: "2mb" }));
