@@ -54,6 +54,12 @@ async function start() {
   });
 }
 
-start();
+// Only auto-start a listening server when this file is run directly
+// (`node server.js` / `npm run dev`). When Vercel imports this module
+// via api/index.js, it handles the HTTP layer itself — calling
+// app.listen() there would be a no-op but is skipped to be explicit.
+if (require.main === module) {
+  start();
+}
 
 module.exports = app;

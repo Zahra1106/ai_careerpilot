@@ -30,7 +30,7 @@ const aiLimiter = rateLimit({
 
 const upload = multer({
   storage: multer.memoryStorage(),
-  limits: { fileSize: 5 * 1024 * 1024 }, // 5MB
+  limits: { fileSize: 4 * 1024 * 1024 }, // 4MB — kept under Vercel's ~4.5MB request body cap
 });
 
 router.use(requireAuth, aiLimiter);
