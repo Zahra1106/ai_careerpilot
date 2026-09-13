@@ -13,6 +13,12 @@ const { errorHandler, notFound } = require("./src/middleware/errorMiddleware");
 
 const app = express();
 
+// Vercel (and most hosting platforms) sit behind a reverse proxy and set
+// X-Forwarded-For headers. Express needs to be told to trust that proxy,
+// otherwise express-rate-limit can't safely identify the real client IP
+// and throws a validation error instead of just rate-limiting normally.
+app.set("trust proxy", 1);
+
 // --- Core middleware ---
 // Permissive by default (undefined or "*" both mean "allow any origin") —
 // this API is called from a mobile app and possibly Flutter web during
