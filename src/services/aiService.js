@@ -2,7 +2,7 @@ const axios = require("axios");
 
 const AI_API_KEY = process.env.AI_API_KEY;
 const AI_BASE_URL = process.env.AI_BASE_URL || "https://api.groq.com/openai/v1";
-const AI_MODEL = process.env.AI_MODEL || "llama-3.3-70b-versatile";
+const AI_MODEL = process.env.AI_MODEL || "llama-3.1-8b-instant";
 
 const client = axios.create({
   baseURL: AI_BASE_URL,
